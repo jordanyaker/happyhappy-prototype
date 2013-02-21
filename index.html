@@ -62,14 +62,25 @@
 	
 	<!-- Scripts -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-	var CKEDITOR_BASEPATH = 'scripts/ckeditor/';
-	</script>
+	<script src="http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-core.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-cssclassapplier.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-selectionsaverestore.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">var CKEDITOR_BASEPATH = 'scripts/ckeditor/';</script>
+	<script src="scripts/ice/ice.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="scripts/ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-	    // Turn off automatic editor creation first.
-	    //CKEDITOR.disableAutoInline = true;
-	</script>
+	<<script type="text/javascript" charset="utf-8">
+		(function(){
+			CKEDITOR.on('inline', function(e){
+				var el = e.data.element.$, tracker = new ice.InlineChangeEditor({
+		    	element: el,
+		      handleEvents: true,
+		      currentUser: { id: 1, name: 'Master Tester' }
+		    });
+
+		    tracker.startTracking();
+			});
+		})();
+	</script>>
 	<script type="text/javascript" charset="utf-8">
 		(function(){
 			var makeLoggable = function(source, functionName, fn){
@@ -80,7 +91,7 @@
 					var args = Array.prototype.slice.call(arguments),
 						timestamp = new Date().toLocaleString();
 						
-					var message = timestamp + ': ' + _source + '.' + _name + '(\'' + args[0] + '\') - ';	
+					var message = timestamp + ': ' + _source + '.' + _name + '(\'' + args[0] + '\')';	
 					message += '\r\n';
 						
 						
