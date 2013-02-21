@@ -1,5 +1,5 @@
-* Create HTML file.
-* Get 960 grid CSS files.
+* <del>Create HTML file.</del>
+* <del>Get 960 grid CSS files.</del>
 * Get CKEditor library.
 * Get ice.js library.
 * Setup frame elements.
