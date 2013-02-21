@@ -1,0 +1,7 @@
+h4.title { margin-bottom: 10px; }
+
+fieldset.prototype.top { height: 500px; }
+fieldset.prototype.bottom { height: 128px; }
+
+.prototype div { margin: 5px; height: 100%; }
+.prototype textarea { resize: none; height: 100%; width: 100%; overflow-y: scroll; }

@@ -14,10 +14,10 @@
 	<link rel="stylesheet" href="assets/css/demo.css" type="text/css" />
 </head>
 <body>
-	<div class="container_16 testing">
-		<div class="grid_10 area">
-			<fieldset>
-				<legend>Editor Contents</legend>
+	<div class="container_16">
+		<div class="grid_10">
+			<h4 class="title">Editor Contents</h4>
+			<fieldset class="prototype top">
 				<div>
 					<p>
 						cask conditioning. bitter, bottom fermenting yeast squares lagering 
@@ -42,16 +42,20 @@
 			</fieldset>
 		</div>
 		<div class="grid_6 area">
-			<fieldset>
-				<legend>Changes</legend>
+			<h4 class="title">Changes</h4>
+			<fieldset class="prototype top">
+				<div>
+					<textarea id="changes" name="changes" class="logging" readonly="readony"></textarea>
+				</div>
 			</fieldset>
 		</div>
 		<div class="fix"></div>
 		<div class="grid_16 console">
-			<fieldset>
-				<legend>Console</legend>
-				
-				
+			<h4 class="title">Console</h4>
+			<fieldset class="prototype bottom">
+				<div>
+					<textarea id="console" name="console" class="logging" readonly="readony"></textarea>
+				</div>	
 			</fieldset>
 		</div>
 	</div>
