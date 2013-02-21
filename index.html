@@ -18,7 +18,7 @@
 		<div class="grid_10">
 			<h4 class="title">Editor Contents</h4>
 			<fieldset class="prototype top">
-				<div class="testarea" contenteditable="true">
+				<div id="area" class="testarea" contenteditable="true">
 					<p>
 						cask conditioning. bitter, bottom fermenting yeast squares lagering 
 						wort chiller black malt. ester caramel malt crystal malt mash tun 
@@ -68,7 +68,37 @@
 	<script src="scripts/ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 	    // Turn off automatic editor creation first.
-	    CKEDITOR.disableAutoInline = true;
+	    //CKEDITOR.disableAutoInline = true;
+	</script>
+	<script type="text/javascript" charset="utf-8">
+		(function(){
+			var makeLoggable = function(source, functionName, fn){
+				var _source = source, _name = functionName, 
+					_super = fn;
+
+				return function(){
+					var args = Array.prototype.slice.call(arguments),
+						timestamp = new Date().toLocaleString();
+						
+					var message = timestamp + ': ' + _source + '.' + _name + '(\'' + args[0] + '\') - ';	
+					message += '\r\n';
+						
+						
+					var output = $('#console'), content = output.val() + message;	
+					output.val(content);
+					output.scrollTop(output[0].scrollHeight - output.height());
+
+					return _super.apply(this, arguments);
+				};
+			};
+
+			// Hack and log all calls to the event invocations.
+			var cke = CKEDITOR || window.CKEDITOR;
+			cke.fire = makeLoggable('CKEDITOR', 'fire', cke.fire);
+			
+			var editor = cke.inline('area');
+			editor.fire = makeLoggable('editor', 'fire', editor.fire);
+		})();
 	</script>
 </body>
 </html>

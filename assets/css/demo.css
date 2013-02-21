@@ -6,4 +6,5 @@ fieldset.prototype.bottom { height: 128px; }
 
 .prototype div:not(.testarea) { height: 100%; }
 .prototype div.testarea { padding: 10px; border: 1px solid Transparent; cursor: default; }
+.prototype div.testarea:hover:not(.cke_focus) { outline: -webkit-focus-ring-color auto 5px; }
 .prototype textarea { resize: none; height: 100%; width: 100%; overflow-y: scroll; }
