@@ -18,7 +18,7 @@
 		<div class="grid_10">
 			<h4 class="title">Editor Contents</h4>
 			<fieldset class="prototype top">
-				<div>
+				<div class="testarea" contenteditable="true">
 					<p>
 						cask conditioning. bitter, bottom fermenting yeast squares lagering 
 						wort chiller black malt. ester caramel malt crystal malt mash tun 
@@ -62,5 +62,13 @@
 	
 	<!-- Scripts -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	var CKEDITOR_BASEPATH = 'scripts/ckeditor/';
+	</script>
+	<script src="scripts/ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	    // Turn off automatic editor creation first.
+	    CKEDITOR.disableAutoInline = true;
+	</script>
 </body>
 </html>
