@@ -74,6 +74,11 @@
         var el = $(this);
         el.attr('contenteditable', true);
 
+        var selection = rangy.getSelection();
+        if (selection) {
+          selection.collapseToStart();
+        }
+
         var editor = el.data('editor.cke');
         if (!editor) {
           editor = CKEDITOR.inline(this.id);
