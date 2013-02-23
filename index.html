@@ -84,6 +84,8 @@
           editor = CKEDITOR.inline(this.id);
           el.data('editor.cke', editor);
 
+
+          // DEBUG: Add event monitorig to the editor.
           $.each(editor._.events, function (event){
             editor.on(event, function () {
               var timestamp = new Date().toLocaleString(),
@@ -127,6 +129,7 @@
     });
   </script>
 	<script type="text/javascript" charset="utf-8">
+	// DEBUG: Add event monitoring to the CKEDITOR library.
     (function () {
       $.each(CKEDITOR._.events, function (event){
         CKEDITOR.on(event, function () {
