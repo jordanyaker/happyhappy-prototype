@@ -14,7 +14,6 @@ fieldset.prototype.bottom { height: 128px; }
 }
 
 .CT-hide .ins, .CT-hide .ins {
-	color: #333333;
 	background: none !important;
 	border: none !important; 
 	text-decoration: none;
@@ -27,7 +26,7 @@ fieldset.prototype.bottom { height: 128px; }
 .ins {
 	text-decoration: underline;
 }
-.cts-1:not(.del) {
+.cts-1:not(.del,.CT-hide) {
     color: green;
 }
 .cts-2 {
