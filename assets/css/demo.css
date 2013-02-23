@@ -1,13 +1,37 @@
 h4.title { margin-bottom: 10px; }
 
 fieldset.prototype { padding: 10px 20px; }
-fieldset.prototype.top { height: 500px; }
+fieldset.prototype.editor { height: 460px; }
+fieldset.prototype #area, fieldset.prototype #Markup { max-height: 460px; overflow: auto; }
+fieldset.prototype #Markup { display: none; }
+fieldset.prototype.revisions { height: 500px; }
 fieldset.prototype.bottom { height: 128px; }
 
-.prototype div:not(.testarea) { height: 100%; }
-.prototype div.testarea { padding: 10px; border: 1px solid Transparent; cursor: default; }
+.prototype div { border: 1px solid Transparent; cursor: default; overflow: auto; }
 .prototype div.testarea:hover:not(.cke_focus) { outline: -webkit-focus-ring-color auto 5px; }
 .prototype textarea { resize: none; height: 100%; width: 100%; overflow-y: scroll; }
+
+#tabs { list-style-type: none; padding: 0; margin: 0 2px; border-left: 1px solid #c0c0c0; border-right: 1px solid #c0c0c0; border-bottom: 1px solid #c0c0c0; clear: both; min-height: 38px; }
+#tabs li { float: left; display: block; border-right: 1px solid #c0c0c0; }
+#tabs li a { display: block; font-size: 16px; height: 16px; line-height: 16px; padding: 11px 10px; }
+#tabs li a:hover, #tabs li a.active { background-color: #c0c0c0; }
+
+pre {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-family: sans-serif;
+	font-size: 16px;
+	white-space: pre-line;                 /* CSS3 browsers  */
+	white-space: -moz-pre-line !important; /* 1999+ Mozilla  */
+	white-space: -pre-line;                /* Opera 4 thru 6 */
+	white-space: -o-pre-line;              /* Opera 7 and up */
+	word-wrap: break-word;                 /* IE 5.5+ and up */
+	/* overflow-x: auto; */                /* Firefox 2 only */
+	/* width: 99%; */
+}
 
 .CT-hide .del, .CT-hide .del {
 	display: none;

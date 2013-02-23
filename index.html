@@ -17,34 +17,41 @@
 	<div class="container_16">
 		<div class="grid_10">
 			<h4 class="title">Editor Contents</h4>
-			<fieldset class="prototype top">
-				<div id="area" class="testarea CT-hide">
-					<p>
-						cask conditioning. bitter, bottom fermenting yeast squares lagering 
-						wort chiller black malt. ester caramel malt crystal malt mash tun 
-						sparge dextrin. racking; alpha acid mash tun mead lager primary 
-						fermentation." craft beer dry hopping; alcohol fermentation shelf 
-						life mash finishing hops. lager malt extract craft beer carboy all
-						-malt, " brewhouse becher grainy."</p>
+			<fieldset class="prototype editor">
+        <div id="area" class="testarea CT-hide">
+          <p>
+            cask conditioning. bitter, bottom fermenting yeast squares lagering 
+            wort chiller black malt. ester caramel malt crystal malt mash tun 
+            sparge dextrin. racking; alpha acid mash tun mead lager primary 
+            fermentation." craft beer dry hopping; alcohol fermentation shelf 
+            life mash finishing hops. lager malt extract craft beer carboy all
+            -malt, " brewhouse becher grainy."</p>
 
-					<p>
-						bottom fermenting yeast grainy sour/acidic ester, double bock/
-						dopplebock secondary fermentation abv lauter! dunkle adjunct wort 
-						balthazar terminal gravity dextrin reinheitsgebot crystal malt. black 
-						malt. brewpub. terminal gravity lagering cask conditioned ale, copper 
-						aerobic? balthazar units of bitterness malt mead berliner weisse 
-						length krug terminal gravity mash pub? enzymes aau, real ale aerobic 
-						final gravity pint glass lauter cask conditioned ale terminal 
-						gravity. terminal gravity wheat beer glass cask conditioning; imperial 
-						alpha acid berliner weisse. copper carbonation wort chiller berliner 
-						weisse top-fermenting yeast, cask conditioning abbey abv.</p>
-				</div>
+          <p>
+            bottom fermenting yeast grainy sour/acidic ester, double bock/
+            dopplebock secondary fermentation abv lauter! dunkle adjunct wort 
+            balthazar terminal gravity dextrin reinheitsgebot crystal malt. black 
+            malt. brewpub. terminal gravity lagering cask conditioned ale, copper 
+            aerobic? balthazar units of bitterness malt mead berliner weisse 
+            length krug terminal gravity mash pub? enzymes aau, real ale aerobic 
+            final gravity pint glass lauter cask conditioned ale terminal 
+            gravity. terminal gravity wheat beer glass cask conditioning; imperial 
+            alpha acid berliner weisse. copper carbonation wort chiller berliner 
+            weisse top-fermenting yeast, cask conditioning abbey abv.</p>
+        </div>
+        <div id="Markup">
+          <pre></pre>
+        </div>
 			</fieldset>
+      <ul id="tabs">
+        <li><a href="javascript:void(0);" class="active editor">Editor</a></li>
+        <li><a href="javascript:void(0);" class="markup">Markup</a></li>
+      </ul>
 		</div>
 		<div class="grid_6 area">
 			<h4 class="title">Changes</h4>
-			<fieldset class="prototype top">
-				<div>
+			<fieldset class="prototype revisions">
+				<div class="">
 					<textarea id="changes" name="changes" class="logging" readonly="readony"></textarea>
 				</div>
 			</fieldset>
@@ -61,8 +68,8 @@
 	</div>
 	
 	<!-- Scripts -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-core.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+	<script src="http://rangy.googlecode.com/svn/trunk/currentrelease/rangy-core.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var CKEDITOR_BASEPATH = 'scripts/ckeditor/';
 	</script>
@@ -74,13 +81,13 @@
         var el = $(this);
         el.attr('contenteditable', true);
 
-        var selection = rangy.getSelection();
-        if (selection) {
-          selection.collapseToStart();
-        }
-
         var editor = el.data('editor.cke');
         if (!editor) {
+          var selection = rangy.getSelection();
+          if (selection) {
+            selection.collapseToStart();
+          }
+
           editor = CKEDITOR.inline(this.id);
           el.data('editor.cke', editor);
 
@@ -126,6 +133,34 @@
 
         $(this).attr('contenteditable', false);
       });
+    });
+  </script>
+  <script type="text/javascript">
+    $('#tabs a').click(function () {
+      var el = $(this);
+
+      if (!el.is('.active')) {
+        var other = $('#tabs a.active'),
+          markupTab = $('#tabs');
+        other.removeClass('active');
+
+        if (el.is('.markup')) {
+          var html = $('#area').html();
+
+          while (html.indexOf('<') != -1){
+            html = html.replace('<', '&lt;');
+          }
+          while (html.indexOf('>') != -1) {
+            html = html.replace('>', '&gt;');
+          }             
+
+          $('#Markup pre').html(html);  
+        }
+
+        el.addClass('active');
+        $('#area').toggle(el.is('.editor'));
+        $('#Markup').toggle(el.is('.markup'));
+      }
     });
   </script>
 	<script type="text/javascript" charset="utf-8">
