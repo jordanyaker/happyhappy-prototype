@@ -8,13 +8,17 @@ fieldset.prototype.revisions { height: 500px; }
 fieldset.prototype.bottom { height: 128px; }
 
 .prototype div { border: 1px solid Transparent; cursor: default; overflow: auto; }
-.prototype div.testarea:hover:not(.cke_focus) { outline: -webkit-focus-ring-color auto 5px; }
+.prototype div.testarea:hover,.prototype .cke_focus  { outline: -webkit-focus-ring-color auto 5px; }
 .prototype textarea { resize: none; height: 100%; width: 100%; overflow-y: scroll; }
+.prototype #changes { height: 99%; width: 99%; overflow-y:scroll; list-style-type: none; padding: 0; margin: 0; border: 1px solid #c0c0c0; }
+.prototype #changes li { displa: block; padding: 5px; }
 
 #tabs { list-style-type: none; padding: 0; margin: 0 2px; border-left: 1px solid #c0c0c0; border-right: 1px solid #c0c0c0; border-bottom: 1px solid #c0c0c0; clear: both; min-height: 38px; }
-#tabs li { float: left; display: block; border-right: 1px solid #c0c0c0; }
+#tabs li { float: left; display: block; }
+#tabs li:not(.last) { border-right: 1px solid #c0c0c0; }
 #tabs li a { display: block; font-size: 16px; height: 16px; line-height: 16px; padding: 11px 10px; }
 #tabs li a:hover, #tabs li a.active { background-color: #c0c0c0; }
+#tabs li .controls { padding: 10px 5px;}
 
 pre {
 	display: block;
@@ -40,7 +44,8 @@ pre {
 .CT-hide .ins, .CT-hide .ins {
 	background: none !important;
 	border: none !important; 
-	text-decoration: none;
+	text-decoration: none !important;
+	color: inherit !important;
 }
 
 .del {
@@ -49,8 +54,6 @@ pre {
 }
 .ins {
 	text-decoration: underline;
-}
-.cts-1:not(.del,.CT-hide) {
     color: green;
 }
 .cts-2 {

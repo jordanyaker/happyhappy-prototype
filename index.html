@@ -46,13 +46,19 @@
       <ul id="tabs">
         <li><a href="javascript:void(0);" class="active editor">Editor</a></li>
         <li><a href="javascript:void(0);" class="markup">Markup</a></li>
+        <li class="last">
+          <div class="controls">
+            <input id="toggleChanges" type="checkbox" />
+            <label for="toggleChanges">Show revisions in text</label>
+          </div>
+        </li>
       </ul>
 		</div>
 		<div class="grid_6 area">
 			<h4 class="title">Changes</h4>
 			<fieldset class="prototype revisions">
 				<div class="">
-					<textarea id="changes" name="changes" class="logging" readonly="readony"></textarea>
+					<ul id="changes" class="logging"></ul>
 				</div>
 			</fieldset>
 		</div>
@@ -74,9 +80,28 @@
 		var CKEDITOR_BASEPATH = 'scripts/ckeditor/';
 	</script>
 	<script src="scripts/ice/ice.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/ice/plugins/IceEventMonitorPlugin/IceEventMonitorPlugin.js" type="text/javascript" charset="utf-8"></script>
 	<script src="scripts/ckeditor/ckeditor.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     $(document).ready(function () {
+      var destroyEditor = function () {
+        var el = $('#area'), editor = el.data('editor.cke'),
+          tracker = el.data('tracker.ice'),
+          elements = $('.cke:not(.cke_editor_area):visible');
+
+        if (elements.length == 0 && editor) {
+          el.removeData('editor.cke')          
+            .removeClass('cke_focus')
+            .attr('contenteditable', false);
+  
+          if (this != editor) {
+            editor.fire('blur');
+          }
+
+          editor.destroy();
+        }
+      };
+
       $('#area').dblclick(function (e) {
         var el = $(this);
         el.attr('contenteditable', true);
@@ -89,8 +114,8 @@
           }
 
           editor = CKEDITOR.inline(this.id);
+          editor.on('blur', destroyEditor);
           el.data('editor.cke', editor);
-
 
           // DEBUG: Add event monitorig to the editor.
           $.each(editor._.events, function (event){
@@ -113,54 +138,63 @@
             currentUser: { 
               id: 1, 
               name: 'Master Tester'
-            }
+            },
+            plugins: [{
+              name: 'IceEventMonitorPlugin',
+              settings: {
+                changeCaptured: function () {
+                  return;
+                }
+              }
+            },{
+              name: 'IceCopyPastePlugin',
+              settings: {
+                // List of tags and attributes to preserve when cleaning a paste
+                preserve: 'p,a[href],span[id,class]em,strong'
+              }
+            }]
           });
 
           el.data('tracker.ice',tracker);
           tracker.startTracking();          
         }
-      }).blur(function () {
-        var el = $(this), editor = el.data('editor.cke'),
-          tracker = el.data('tracker.ice');
-
-        if (editor) {
-          editor.fire('blur');
-          editor.destroy();
-
-          el.removeData('editor.cke');          
-          el.removeClass('cke_focus');
-        }  
-
-        $(this).attr('contenteditable', false);
-      });
+      }).blur(destroyEditor);
     });
   </script>
   <script type="text/javascript">
-    $('#tabs a').click(function () {
-      var el = $(this);
+    $(document).ready(function() {
+      $('#tabs a').click(function () {
+        var el = $(this);
 
-      if (!el.is('.active')) {
-        var other = $('#tabs a.active'),
-          markupTab = $('#tabs');
-        other.removeClass('active');
+        if (!el.is('.active')) {
+          var other = $('#tabs a.active'),
+            markupTab = $('#tabs');
+          other.removeClass('active');
 
-        if (el.is('.markup')) {
-          var html = $('#area').html();
+          if (el.is('.markup')) {
+            var html = $('#area').html();
 
-          while (html.indexOf('<') != -1){
-            html = html.replace('<', '&lt;');
+            while (html.indexOf('<') != -1){
+              html = html.replace('<', '&lt;');
+            }
+            while (html.indexOf('>') != -1) {
+              html = html.replace('>', '&gt;');
+            }             
+
+            $('#Markup pre').html(html);  
           }
-          while (html.indexOf('>') != -1) {
-            html = html.replace('>', '&gt;');
-          }             
 
-          $('#Markup pre').html(html);  
+          el.addClass('active');
+          $('#area').toggle(el.is('.editor'));
+          $('#Markup').toggle(el.is('.markup'));
         }
+      });
 
-        el.addClass('active');
-        $('#area').toggle(el.is('.editor'));
-        $('#Markup').toggle(el.is('.markup'));
-      }
+      $('#toggleChanges').change(function() {
+        var checked = this.checked;
+
+        $('#area').toggleClass('CT-hide', !checked);
+      });
     });
   </script>
 	<script type="text/javascript" charset="utf-8">
