@@ -8,6 +8,12 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	// %REMOVE_START%
+	config.toolbarGroups = [
+        { name: 'basicstyles' },
+        ['Undo', 'Redo'],
+        [ 'Table'],
+        ['NumberedList', 'BulletedList']
+    ];
 	config.plugins =
 		'about,' +
 		'a11yhelp,' +
